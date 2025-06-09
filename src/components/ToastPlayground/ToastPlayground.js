@@ -8,29 +8,29 @@ import styles from "./ToastPlayground.module.css";
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
 function ToastPlayground() {
-  const [toasts, setToasts] = React.useState([
-    {
-      id: crypto.randomUUID(),
-      message: "Example notice toast",
-      variant: "notice",
-    },
-    {
-      id: crypto.randomUUID(),
-      message: "Example error toast",
-      variant: "error",
-    },
-  ]);
+  const [toasts, setToasts] = React.useState([]);
   const [message, setMessage] = React.useState("");
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
 
   // console.log(message, variant);
 
   function handleClick(event) {
-    // setIsRendered(true);
+    const nextToast = [
+      ...toasts,
+      {
+        id: crypto.randomUUID(),
+        message,
+        variant,
+      },
+    ];
+    // console.log(nextToast);
+    setToasts(nextToast);
   }
 
-  function dismissModal() {
-    // setIsRendered(false);
+  function handleDismiss(toastId) {
+    // console.log("Dismiss", toastId);
+    const nextToasts = toasts.filter((toast) => toast.id !== toastId);
+    setToasts(nextToasts);
   }
 
   return (
@@ -39,7 +39,7 @@ function ToastPlayground() {
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
-      <ToastShelf toasts={toasts} />
+      <ToastShelf toasts={toasts} handleDismiss={handleDismiss} />
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
           <label
