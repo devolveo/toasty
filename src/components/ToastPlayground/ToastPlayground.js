@@ -15,6 +15,7 @@ function ToastPlayground() {
   // console.log(message, variant);
 
   function handleClick(event) {
+    event.preventDefault();
     const nextToast = [
       ...toasts,
       {
@@ -40,7 +41,7 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
       <ToastShelf toasts={toasts} handleDismiss={handleDismiss} />
-      <div className={styles.controlsWrapper}>
+      <form className={styles.controlsWrapper} onSubmit={handleClick}>
         <div className={styles.row}>
           <label
             htmlFor="message"
@@ -84,10 +85,10 @@ function ToastPlayground() {
         <div className={styles.row}>
           <div className={styles.label} />
           <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-            <Button onClick={handleClick}>Pop Toast!</Button>
+            <Button>Pop Toast!</Button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

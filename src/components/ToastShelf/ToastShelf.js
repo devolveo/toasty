@@ -10,8 +10,9 @@ function ToastShelf({ toasts, handleDismiss }) {
         return (
           <li key={toast.id} className={styles.toastWrapper}>
             <Toast
+              id={toast.id}
               variant={toast.variant}
-              handleDismiss={() => handleDismiss(toast.id)}
+              handleDismiss={handleDismiss}
             >
               {toast.message}
             </Toast>
